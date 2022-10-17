@@ -1,0 +1,98 @@
+<div class="container" style="width: 80%; margin: 20px auto;">
+      
+  <div class="d-flex justify-content-between" style="padding: 20px 0;">
+    <h1>Tasks:</h1>
+      <select class="form-select w-25 h-25 mb-1" aria-label="Default select example" [(ngModel)]="sortingMethod" (change)="initData()">
+        <option value="sortBy" selected>(sort by)</option>
+        <option *ngFor="let sortMethod of sortingMethodsArray" [value]="sortMethod">{{sortMethod}}</option>
+      </select>
+  </div>
+
+
+  <div class="card mb-3 " style="border: 2px solid white" style="padding: 10px 0 " *ngFor="let toDo of toDos" [ngClass]="{activeClass: !toDo.completed, inactiveClass: toDo.completed}">
+    <div class="row g-0" style="padding: 0 20px ;">
+      <div class="col-md-1 d-flex align-items-center justify-content-center" style=" border-radius: 50%; height:50px; width:50px;margin: auto; background-color: rgb(255, 203, 211);">
+        <i class="fa fa-2x" [ngClass]="{
+              'fa-pencil': toDo.category === 'STUDY',
+              'fa-clock-o': toDo.category === 'PRODUCTIVITY', 
+              'fa-bathtub': toDo.category === 'LIFE'
+              }" 
+            style="color: rgb(232, 108, 176)"></i>
+
+      </div>
+      <div class="col-md-9">
+        <div class="card-body" >
+          <h5 class="card-title">{{toDo.title}}</h5>
+            <p class="card-text ">
+              <small class="text-muted">
+                <div class="d-flex " >
+                  <span style="margin-right: 2vw;"><strong>START:</strong> {{toDo.startDateTime}}</span>
+                  <span><strong>DUE:</strong> {{toDo.endDateTime}}</span>
+                </div>
+            </small></p>
+              
+        </div>
+      </div>
+
+          <!-- Completed switch -->
+      <div class="col-md-2 d-flex align-items-center justify-content-between" style="margin: 20px 0;">
+        <div class="form-check form-switch">
+          <input style="background-color: palevioletred; width: 50px; padding: 10px 0;" class="form-check-input" type="checkbox" role="switch" [checked]="toDo.completed" (click)="changeTaskCompletion(toDo)">
+        </div>
+
+        <i class="fa fa-edit fa-2x text-muted" role="button" (click)="openEdit(content,toDo)"> </i>
+        <i class="fa fa-window-close fa-2x text-muted" role="button" (click)="removeTask(toDo.id)"></i>
+      </div>
+          
+    </div>
+  </div>
+  <div *ngIf="toDos.length==0" class="alert alert-primary" role="alert">There are no tasks to display. Try creating some!</div>
+<!--  -->
+</div>
+
+
+<!-- MODAL -->
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Edit task</h4>
+  </div>
+
+  <div class="modal-body">
+    <form [formGroup]="editFormGroup" (click)="onSubmitChanges()" class="container w-100">
+      <div class="mb-3">
+          <label for="title" class="form-label">Title:</label>
+          <input type="text" class="form-control" id="title" placeholder="Pick a name your task..." formControlName="editTitleControl">
+      </div>
+      <div class="mb-3">
+        <label for="startDate" class="form-label">Start date:</label>
+        <input type="datetime-local" class="form-control" id="startDate" formControlName="editStartDateControl">
+      </div>
+      <div class="mb-3">
+        <label for="endDate" class="form-label">End date:</label>
+        <input type="datetime-local" class="form-control" id="endDate" formControlName="editEndDateControl">
+      </div>    
+      <div class="mb-3">
+          <label for="category" class="form-label">Choose category:</label>
+          <select id="category" class="form-select" aria-label="Default select example" formControlName="editCategoryControl">
+            <option selected>(select task category)</option>
+            <option value="study">STUDY</option>
+            <option value="productivity">PRODUCTIVITY</option>
+            <option value="life">LIFE</option>
+          </select>
+      </div>
+      <!-- <div class="mb-3">
+        <div class="form-check form-switch">
+          <input style="background-color: palevioletred; width: 100px; padding: 20px;" class="form-check-input" type="checkbox" role="switch" formControlName="editCompletedControl">
+        </div>
+      </div> -->
+      <button type="submit" class="btn btn-outline-primary">Submit changes</button>
+  </form>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+  </div>
+</ng-template>
+
+

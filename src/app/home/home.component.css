@@ -1,0 +1,12 @@
+[role=button], [role=switch]{
+    cursor: pointer;
+}
+
+div{
+    border: none;
+}
+
+.alert-primary{
+    background-color: rgba(216, 112, 147, 0.373);
+    color: white;
+}

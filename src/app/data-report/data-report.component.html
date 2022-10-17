@@ -1,0 +1,51 @@
+<div class="container text-center">
+    <h1 class="text-center mt-3">📊Your reports📊</h1>
+    <div class="row m-lg-2" >
+        <div class="col-sm-6" >
+            <div class="card" style="height: fit-content;">
+              <div class="card-header">
+                 Completed
+                </div>
+                <div class="card-body d-flex flex-column">
+                    <span class="inner-circle">   
+                        <h5 class="card-title pt-2">{{completedToDoNumber}}</h5>
+                    </span>
+                    <p class="card-text">completed tasks</p>
+                </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="card" style="height: fit-content;">
+              <div class="card-header">
+                  Missing
+                </div>
+                <div class="card-body d-flex flex-column ">
+                    <span class="inner-circle missing">   
+                        <h5 class="card-title pt-2">{{missingToDoNumber}}</h5>
+                    </span>
+                    <p class="card-text">tasks still in progress</p>
+ 
+                </div>
+            </div>
+          </div>
+    </div>
+
+    <div class="row m-lg-2" style="height: fit-content;">
+        <div class="col-sm-12">
+          <div class="card">
+            <div class="card-header">
+                All activity
+              </div>
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">{{totalToDoNumber}}</h5>
+                <p class="card-text">entries</p>
+                <p>{{dynamicWidth}} finished</p>
+                <div class="w3-light-grey">
+                    <div class="w3-grey" [style.width]="initialiseWidth()" style="height:24px;width:50%"></div>
+                </div>
+              </div>
+          </div>
+        </div>
+        <a href="#" style="margin: 10px auto" class="btn btn-primary">Manage tasks</a>
+    </div>
+</div>

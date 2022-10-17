@@ -1,0 +1,36 @@
+<form [formGroup]="createTaskFormGroup" (submit)="onSubmit()" class="container w-75 mt-4">
+    <h1 class="text-center">✨Create new task✨</h1>
+    <div class="mb-3">
+        <label for="title" class="form-label">Title:</label>
+        <input type="text" class="form-control" id="title" placeholder="Pick a name your task..." formControlName="titleControl">
+    </div>
+    <div class="mb-3">
+      <label for="startDate" class="form-label">Start date:</label>
+      <input type="datetime-local" class="form-control" id="startDate" formControlName="startDateControl">
+    </div>
+    <div class="mb-3">
+      <label for="endDate" class="form-label">End date:</label>
+      <input type="datetime-local" class="form-control" id="endDate" formControlName="endDateControl">
+    </div>    
+    <div class="mb-3">
+        <label for="category" class="form-label">Choose category:</label>
+        <select id="category" class="form-select" aria-label="Default select example" formControlName="categoryControl">
+          <option selected>(select task category)</option>
+          <option value="study">study</option>
+          <option value="productivity">productivity</option>
+          <option value="life">life</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-outline-dark float-end" style="background-color: palevioletred; border: 2px solid palevioletred;">Submit</button>
+
+    <div *ngIf="showMessage">
+      <ng-container *ngIf="!showErrorMessage; then successMessage; else errorMessage"></ng-container>
+      <ng-template #successMessage>
+        <p class="text-success w-25">Submitted</p>
+      </ng-template>
+      <ng-template #errorMessage>
+        <p class="text-danger w-25">Invalid data</p>
+      </ng-template>
+    </div>
+
+</form>
